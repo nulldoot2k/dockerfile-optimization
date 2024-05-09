@@ -3,7 +3,7 @@ FROM alpine:3.7
 
 # Update system and install dependencies (make gcc g++ and python are the equivalent for the build-essential package in the previous Dockerfile)
 RUN apk update && \
-    apk add nodejs make gcc g++ python
+    apk add nodejs
 
 # Create and define work directory
 WORKDIR /code
@@ -20,9 +20,8 @@ RUN npm run build
 
 # NEW STUFF: clean extra system and npm packages, remove useless files
 RUN npm prune --production
-RUN apk del make gcc g++ python && \
-    rm -rf /var/cache/apk/*
-RUN rm -rf /code/dockerfiles /code/tsconfig.json
+RUN rm -rf /var/cache/apk/* && \
+    rm -rf /code/dockerfiles /code/tsconfig.json
 
 # Create dedicated user to not run the application as root (security best practice)
 RUN adduser -D -h /code -u 5000 nulldoot2k && \

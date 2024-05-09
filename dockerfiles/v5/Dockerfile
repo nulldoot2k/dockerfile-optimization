@@ -28,7 +28,7 @@ FROM base as dependencies
 COPY package-lock.json /code/
 
 # Update system, install dependencies, install npm production dependencies
-RUN apk --update --no-cache add --virtual build-dependencies make gcc g++ python && \
+RUN apk --update --no-cache add --virtual build-dependencies && \
     npm set progress=false && \
     npm install --silent --production
 

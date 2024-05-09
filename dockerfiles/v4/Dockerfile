@@ -12,10 +12,9 @@ WORKDIR /code
 COPY package.json package-lock.json /code/
 
 # Update system, install dependencies, install npm production dependencies and clean everything when done
-RUN apk --update --no-cache add nodejs make gcc g++ python && \
+RUN apk --update --no-cache add nodejs && \
     npm set progress=false && \
-    npm install --silent --production && \
-    apk del make gcc g++ python
+    npm install --silent --production
 
 # Expose application port
 EXPOSE 8080
